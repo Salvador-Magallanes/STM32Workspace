@@ -1,0 +1,34 @@
+These are notes to prevent myself from facing the agony of having to set everything up again
+
+---------------------------1. What is needed (bare minimum)-----------------------------------
+- c file for the code
+- startup file (i.e. startup_stm32f401xe.s) as it is used for setting vector table and other things
+- system file (i.e. system32f4xx.c) which is used for clock essentials and calling startup 
+- linker file (i.e. STM32F401RETX_FLASH.ld) is used for linking
+
+------------------------------2. Makefile configuration---------------------------------------
+
+FLASH=STM32F401RETX_FLASH.ld
+
+#directory housing the firmware + api (from stm website)
+STM_COMMON=/home/salvador/Documents/The_Silly/embedded/tools/stm32cubef4-v1-28-0/STM32Cube_FW_F4_V1.28.0
+
+#Compiler flags
+CFLAGS = -O2 -Wall -T $(FLASH) -nostartfiles -nostdlib #nostartfiles and nostdlib prevent os from using regular compiling
+CFLAGS += -mthumb -mcpu=cortex-m4 #m4 only supports thumb
+
+CFLAGS += -I$(STM_COMMON)/Drivers/CMSIS/Include #has things like core_m4 include
+CFLAGS += -I$(STM_COMMON)/Drivers/CMSIS/Device/ST/STM32F4xx/Include #has things like LL register names (handy)
+
+all: main.elf main.bin #denotes the end goals
+
+main.elf: startup_stm32f401xe.o system_stm32f4xx.o main.o 
+        $(CC) $(CFLAGS) $^ -o $@
+%.o: %.c
+        $(CC) $(CFLAGS) -c $< -o $@
+%.o: %.s
+        $(CC) $(CFLAGS) -c $< -o $@
+main.bin: main.elf
+        $(OBJCOPY) -O binary $< $@
+clean:
+        rm -f *.o *.elf *.bin

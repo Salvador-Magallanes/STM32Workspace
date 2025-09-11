@@ -1,0 +1,2 @@
+ordering for parenthesis and dereference is (*(volatile unsigned int*) (register math))
+don't put volatile int in for loop (idk why yet)
