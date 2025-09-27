@@ -16,6 +16,8 @@ Execution
 
 */
 
+
+//placeholder comment
 int main(){
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN_Msk; //enable the clock for port A
 	GPIOA->MODER &= ~(0b11 << (2 * 11)); //Lower PA11 bits for input
