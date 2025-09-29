@@ -29,8 +29,10 @@ PWM mode 1 has high before count is reached (can be done by mode 2 with polarity
 Will use TIM2 Channel 1 (alternate function 1 of PA1)
 
 
+PWM frequency = CLK_in / ((ARR + 1)(PSC + 1))
+
 */
-uint16_t PRESCALER_VAL = 6400; //used to prescale the clock from 16 MHz to 250 Hz
+uint16_t PRESCALER_VAL = 3199; //used to prescale the clock from 16 MHz to 250 Hz
 
 int main(){
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN; //enable the clock for port A
@@ -42,8 +44,8 @@ int main(){
 
 
     TIM2->PSC = PRESCALER_VAL;
-    TIM2->ARR = 49;
-
+    TIM2->ARR = 99;
+    
     TIM2->CCR2 |= 5; //duty cycle
 
     TIM2->CCMR1 |= 0b110 << 12; //pwm mode 1
