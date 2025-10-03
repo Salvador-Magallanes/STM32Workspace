@@ -6,7 +6,9 @@ typedef enum {
     PORTA, 
     PORTB,
     PORTC,
-    PORTD
+    PORTD,
+    PORTE,
+    PORTH
 }gpio_ports;
 
 typedef enum {

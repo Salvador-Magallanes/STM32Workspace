@@ -4,7 +4,6 @@
 
 int main(){
     enable_gpio_port(PORTA);
-    
     set_gpio_pin_mode(PORTA,5,OUTPUT);
     
 

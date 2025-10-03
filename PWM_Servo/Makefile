@@ -4,7 +4,7 @@ OBJCOPY=arm-none-eabi-objcopy
 MAIN_DIRECTORY = ../tools/STM32Cube_FW_F4_V1.28.0
 LINKER = -T ../STM32F401RETX_FLASH.ld -nostdlib -nostartfiles
 
-CFLAGS = -O2 -Wall $(LINKER) -mthumb -mcpu=cortex-m4
+CFLAGS = -O0 -g -Wall $(LINKER) -mthumb -mcpu=cortex-m4
 
 INCLUDES = -I $(MAIN_DIRECTORY)/Drivers/CMSIS/Include
 INCLUDES += -I $(MAIN_DIRECTORY)/Drivers/CMSIS/Device/ST/STM32F4xx/Include
